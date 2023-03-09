@@ -1,0 +1,9 @@
+fastapi
+lxml
+pyjwt[crypto]
+pymongo
+python-dotenv
+pytz
+requests
+requests[socks]
+uvicorn[standard]
