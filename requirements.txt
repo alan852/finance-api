@@ -6,4 +6,5 @@ python-dotenv
 pytz
 requests
 requests[socks]
+rocketry
 uvicorn[standard]

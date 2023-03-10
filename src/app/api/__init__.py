@@ -1,1 +1,2 @@
-from .currencies import router as router_currencies
+from .api import app as api_app
+from .scheduler import app as scheduler_app

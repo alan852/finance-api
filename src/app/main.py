@@ -1,15 +1,29 @@
-from dotenv import load_dotenv, find_dotenv
-from fastapi import FastAPI
+import asyncio
+import logging
 
-from api import router_currencies
-from api.utils import get_env, ENV
+from dotenv import load_dotenv, find_dotenv
+from uvicorn import Server, Config
+from api import api_app, scheduler_app
 
 load_dotenv(dotenv_path=find_dotenv())
 
-app = FastAPI(
-    title=get_env(ENV.APP_NAME),
-    version=get_env(ENV.APP_VERSION),
-    openapi_url=''
-)
 
-app.include_router(router_currencies)
+class FinanceApiServer(Server):
+    def handle_exit(self, sig: int, frame) -> None:
+        scheduler_app.session.shut_down()
+        return super().handle_exit(sig, frame)
+
+
+async def main():
+    server = FinanceApiServer(
+        config=Config(api_app, proxy_headers=True, host='0.0.0.0', port=80, workers=1, loop='asyncio')
+    )
+
+    api = asyncio.create_task(server.serve())
+    scheduler = asyncio.create_task(scheduler_app.serve())
+
+    await asyncio.wait([api, scheduler])
+
+
+if __name__ == '__main__':
+    asyncio.run(main())

@@ -14,4 +14,4 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 
 ADD ../src/app .
 
-CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+CMD ["python3", "./main.py"]

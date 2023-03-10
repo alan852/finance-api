@@ -12,6 +12,7 @@ class ENV(Enum):
     OER_API_KEY = {'name': 'OER_API_KEY', 'default': ''}
     MONGO_CONNECTION = {'name': 'MONGO_CONNECTION', 'default': ''}
     MONGO_CURRENCIES_DB = {'name': 'MONGO_CURRENCIES_DB', 'default': ''}
+    HEALTH_CHECK_PUSH_URL = {'name': 'HEALTH_CHECK_PUSH_URL', 'default': ''}
 
 
 def get_env(env: ENV):

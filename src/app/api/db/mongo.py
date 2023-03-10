@@ -27,7 +27,6 @@ class Mongo(DB):
         )
 
     def insert_rate(self, rate: Rate) -> bool:
-        print(f'{rate["timestamp"]} {rate["base"]}')
         rate['_id'] = f'{rate["timestamp"]} {rate["base"]}'
         collection = self.database[self.rate_collection]
         result = collection.update_one({'_id': rate['_id']}, {"$set": rate}, upsert=True)
