@@ -15,4 +15,5 @@ def get_latest_from_db_or_api() -> Rate:
         crawler = OpenExchangeRates(api_id=get_env(ENV.OER_API_KEY))
         r = crawler.get_rate()
         db.insert_rate(r)
+        r = db.get_latest_rate()
     return r

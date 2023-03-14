@@ -21,8 +21,8 @@ class Mongo(DB):
 
     def get_rate(self, timestamp: datetime) -> Rate | None:
         collections = self.database[self.rate_collection]
-        return collections.find_one({
-            "timestamp": timestamp},
+        return collections.find_one(
+            {"timestamp": timestamp},
             projection={'_id': False}
         )
 

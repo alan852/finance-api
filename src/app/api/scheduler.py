@@ -12,7 +12,7 @@ logger = logging.getLogger()
 logger.addHandler(logging.StreamHandler())
 
 
-@app.task(cron('0 * * * *'))
+@app.task(cron('55 * * * *'))
 async def get_rate():
     get_latest_from_db_or_api()
 
