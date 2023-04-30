@@ -18,7 +18,7 @@ def get_latest_from_db_or_api() -> Rate:
         symbols = get_env(ENV.CRYPTO_SYMBOLS).split(',')
         cr = crawler.get_crypto_rate(symbols=symbols)
         for symbol in symbols:
-            r['rates'][symbol] = cr[symbol]
+            r['rates'][symbol] = 1/cr[symbol]
         db.insert_rate(r)
         r = db.get_latest_rate()
     return r
