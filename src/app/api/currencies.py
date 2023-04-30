@@ -31,5 +31,5 @@ symbols_regex = '^(?:[A-Za-z]+-[A-Za-z]+)(?:,[A-Za-z]+-[A-Za-z]+)*$'
 async def get_exchange_rates(symbols: str = Query(regex=symbols_regex)) -> ExchangeRatesResponse:
     r = get_latest_from_db_or_api()
     return {'timestamp': r['timestamp'],
-            'rates': [{'symbol': _, 'rate': r['rates'][_.split('-')[0]] / r['rates'][_.split('-')[1]]} for _ in symbols.upper().split(',')
+            'rates': [{'symbol': _, 'rate': r['rates'][_.split('-')[1]] / r['rates'][_.split('-')[0]]} for _ in symbols.upper().split(',')
                       if _.split('-')[0] in r['rates'].keys() and _.split('-')[1] in r['rates'].keys()]}
