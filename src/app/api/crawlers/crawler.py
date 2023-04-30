@@ -13,7 +13,3 @@ class Crawler(ABC):
         r = self.session.get(url=url, params=params)
         r.raise_for_status()
         return r.json()
-
-    @abstractmethod
-    def get_rate(self, base: str = 'USD') -> Rate:
-        pass

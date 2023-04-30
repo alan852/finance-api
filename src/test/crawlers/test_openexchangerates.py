@@ -11,7 +11,7 @@ load_dotenv(dotenv_path=find_dotenv())
 
 
 class OpenExchangeRatesTest(TestCase):
-    crawler = OpenExchangeRates(api_id=get_env(ENV.OER_API_KEY))
+    crawler = OpenExchangeRates(api_key=get_env(ENV.OER_API_KEY))
 
     def test_get_currencies(self):
         symbol = 'USD'
