@@ -24,12 +24,12 @@ class ExchangeRatesResponse(TypedDict):
     rates: list[ExchangeRateResponse]
 
 
-symbols_regex = '^(?:[A-Za-z]{6})(?:,[A-Za-z]{6})*$'
+symbols_regex = '^(?:[A-Za-z]+-[A-Za-z]+)(?:,[A-Za-z]+-[A-Za-z]+)*$'
 
 
 @router.get("/exchange_rates", status_code=status.HTTP_200_OK)
 async def get_exchange_rates(symbols: str = Query(regex=symbols_regex)) -> ExchangeRatesResponse:
     r = get_latest_from_db_or_api()
     return {'timestamp': r['timestamp'],
-            'rates': [{'symbol': _, 'rate': r['rates'][_[3:]] / r['rates'][_[:3]]} for _ in symbols.upper().split(',')
-                      if _[:3] in r['rates'].keys() and _[3:] in r['rates'].keys()]}
+            'rates': [{'symbol': _, 'rate': r['rates'][_.split('-')[0]] / r['rates'][_.split('-')[1]]} for _ in symbols.upper().split(',')
+                      if _.split('-')[0] in r['rates'].keys() and _.split('-')[1] in r['rates'].keys()]}
